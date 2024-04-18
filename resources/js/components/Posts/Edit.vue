@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="storePost(post)">
+    <form @submit.prevent="updatePost(post)">
         <!-- Title -->
         <div>
             <label for="post-title" class="block text-sm font-medium text-gray-700">

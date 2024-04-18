@@ -7,6 +7,7 @@ use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
 
 class PostController extends Controller
 {
@@ -29,5 +30,21 @@ class PostController extends Controller
             ->paginate(10);
 
         return PostResource::collection($posts);
+    }
+
+    public function store(StorePostRequest $request)
+    {
+        if ($request->hasFile('thumbnail')) { 
+            $filename = $request->file('thumbnail')->getClientOriginalName();
+            info($filename);
+        } 
+
+        $post = Post::create($request->validated());
+ 
+        return new PostResource($post);
+    }
+    public function show(Post $post)
+    {
+        return new PostResource($post);
     }
 }
